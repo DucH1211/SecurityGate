@@ -1,6 +1,7 @@
 package com.abohosale.security.SecurityGate.controller;
 
 import com.abohosale.security.SecurityGate.auth.JwtHelper;
+import com.abohosale.security.SecurityGate.auth.WebSecurityConfig;
 import com.abohosale.security.SecurityGate.common.login.LoginResult;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -33,6 +34,12 @@ public class AuthController {
         this.passwordEncoder = passwordEncoder;
     }
 
+    /**
+     * the login url to create a JWT token with id and authorities included in the claims
+     * @param username
+     * @param password
+     * @return
+     */
     @PostMapping(path = "login", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public LoginResult login(
             @RequestParam String username,
@@ -47,12 +54,14 @@ public class AuthController {
         if(passwordEncoder.matches(password,userDetails.getPassword())){
             Map<String,String> claims = new HashMap<>();
             claims.put("username",username);
-
+            //adding authorities as space separated values to the jwt claims
             String authorities = userDetails.getAuthorities()
                     .stream()
                     .map(GrantedAuthority::getAuthority)
-                    .collect(Collectors.joining(","));
-            claims.put("authorities",authorities);
+                    .collect(Collectors.joining(","))
+                    .replace(","," ");
+            //.replace() used fixing error in collectors.joining("") did not join as expected.
+            claims.put(WebSecurityConfig.AUTHORITIES_CLAIM_NAME,authorities);
             claims.put("userId",String.valueOf(1));
             String jwt = jwtHelper.createJwtForClaims(username,claims);
             return new LoginResult(jwt);
