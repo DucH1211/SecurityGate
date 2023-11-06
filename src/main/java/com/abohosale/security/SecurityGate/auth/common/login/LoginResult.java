@@ -1,4 +1,4 @@
-package com.abohosale.security.SecurityGate.common.login;
+package com.abohosale.security.SecurityGate.auth.common.login;
 
 import lombok.Data;
 import lombok.NonNull;

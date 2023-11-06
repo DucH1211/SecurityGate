@@ -13,6 +13,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 
+/**
+ * Class used to create JWT for a Map collection of Claims
+ *
+ */
 @Slf4j
 @Component
 public class JwtHelper {

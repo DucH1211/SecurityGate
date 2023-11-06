@@ -17,6 +17,9 @@ import java.security.interfaces.RSAPublicKey;
 
 /**
  * Configure beans required for JWT signing and validation
+ * contain the signing key information, signin key in kept in keystore
+ * Beans to load keystore, get RSA public, private key,
+ * and JWT Decoder.
  */
 @Slf4j //for logging
 @Configuration

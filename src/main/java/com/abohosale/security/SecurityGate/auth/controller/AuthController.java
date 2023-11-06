@@ -1,8 +1,8 @@
-package com.abohosale.security.SecurityGate.controller;
+package com.abohosale.security.SecurityGate.auth.controller;
 
 import com.abohosale.security.SecurityGate.auth.JwtHelper;
 import com.abohosale.security.SecurityGate.auth.WebSecurityConfig;
-import com.abohosale.security.SecurityGate.common.login.LoginResult;
+import com.abohosale.security.SecurityGate.auth.common.login.LoginResult;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.GrantedAuthority;
@@ -10,10 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.HashMap;
@@ -41,7 +38,7 @@ public class AuthController {
      * @param password
      * @return
      */
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = {"https://main.d3voz03dgyqaee.amplifyapp.com/","http://localhost:3000","https://www.abohothrivezone.org/"})
     @PostMapping(path = "login", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public LoginResult login(
             @RequestParam String username,
@@ -70,6 +67,4 @@ public class AuthController {
         }
         throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,"User not authenticated");
     }
-
-
 }

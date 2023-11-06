@@ -53,7 +53,7 @@ public class WebSecurityConfig {
                 ) //not using sessions(state) in this case
                 .authorizeHttpRequests(config ->
                         config
-                                .requestMatchers("/error", "/login")
+                                .requestMatchers("/error", "/login","user/register")
                                 .permitAll() //permits all request to .error and login
                                 .anyRequest()
                                 .authenticated() //authenticate the rany other request
